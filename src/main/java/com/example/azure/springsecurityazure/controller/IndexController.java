@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Map;
 
 @Controller
@@ -21,9 +22,11 @@ import java.util.Map;
 public class IndexController {
 
     @GetMapping
+    @ResponseBody
     //@PreAuthorize("hasRole('ROLE_Developer')")
 //    @Secured({ "ROLE_Developer", "ROLE_Developer" , "APPROLE_Developer", "APPROLE_DEVELOPER", "ROLE_USER"}) works
-    @PreAuthorize("hasAnyAuthority('APPROLE_Writer', 'APPROLE_WRITER', 'ROLE_USER')")
+//    @PreAuthorize("hasAnyAuthority('APPROLE_Writer', 'APPROLE_WRITER', 'ROLE_USER')")
+    @PreAuthorize("hasAuthority('APPROLE_Writer')")
     public String index(Model model, Authentication user) {
         log.info("GET /: user={}", user);
         model.addAttribute("user", user);
