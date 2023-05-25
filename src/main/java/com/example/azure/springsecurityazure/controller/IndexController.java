@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,9 @@ import java.util.Map;
 public class IndexController {
 
     @GetMapping
-    @PreAuthorize("hasRole('Developer')")
+    //@PreAuthorize("hasRole('ROLE_Developer')")
+//    @Secured({ "ROLE_Developer", "ROLE_Developer" , "APPROLE_Developer", "APPROLE_DEVELOPER", "ROLE_USER"}) works
+    @PreAuthorize("hasAnyAuthority('APPROLE_Writer', 'APPROLE_WRITER', 'ROLE_USER')")
     public String index(Model model, Authentication user) {
         log.info("GET /: user={}", user);
         model.addAttribute("user", user);
