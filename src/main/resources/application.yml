@@ -15,3 +15,12 @@ spring:
               - openid
               - email
               - profile
+
+
+# Group mapping
+baeldung:
+  jwt:
+    authorization:
+      group-to-authorities:
+        "f07c6283-37a0-4d9b-9fbe-89e9918ed464": GROUP1
+        "4b593ac6-7156-48c9-9a6e-b2e7b53f1792": DEVELOPER
